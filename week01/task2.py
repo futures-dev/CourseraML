@@ -1,9 +1,8 @@
-import numpy as np
 from sklearn.tree import DecisionTreeClassifier
 import pandas
 
 data = pandas.read_csv('titanic.csv', index_col='PassengerId')
-data['Sex'] = data['Sex'].astype('category')
+data['Sex'] = edata['Sex'].astype('category')
 sex_columns = data.select_dtypes(['category']).columns
 data[sex_columns] = data[sex_columns].apply(lambda x: x.cat.codes)
 data.drop(data.columns[[2, 5, 6, 7, 9, 10]], 1, inplace=True)

@@ -1,11 +1,9 @@
 import pandas
-from sklearn.metrics import roc_auc_score
-from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
 
-logreg = LogisticRegression(tol=1e-5, C=10, max_iter=10000, intercept_scaling=0.1)
-train = pandas.read_csv('data-logistic.csv')
+svc = SVC(C=100000, random_state=241, kernel='linear')
+train = pandas.read_csv('svm-data.csv')
 y = train['a']
-train.drop(train[[0]], 1, inplace=True)
-
-logreg.fit(train, y)
-roc_auc_score(y, logreg.class_weight)
+x = train[['b', 'c']]
+svc.fit(x, y)
+print(sorted(svc.support_ + 1))

@@ -1,7 +1,7 @@
 import pandas
 import numpy as np
 from sklearn.cross_validation import train_test_split
-from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import log_loss
 
 data = pandas.read_csv('gbm-data.csv')
@@ -13,6 +13,7 @@ result = {}
 for learning_rate in [1, .5, .3, .2, .1]:
 """
 for learning_rate in [.2]:
+    """
     classifier = GradientBoostingClassifier(n_estimators=250, verbose=True, random_state=241,
                                             learning_rate=learning_rate)
     classifier.fit(X_train, y_train)
@@ -33,6 +34,12 @@ for learning_rate in [.2]:
         if log_test[i] < m:
             m = log_test[i]
             ii = i
+    """
+    clf = RandomForestClassifier(n_estimators=36, random_state=241)
+    clf.fit(X_train, y_train)
+    y_forest = clf.predict_proba(X_test)
 
-    print(m, ii)
+    y_forest_test = 1 / (1 + np.exp(-y_forest))
+
+    print("LOG: ", log_loss(y_test, y_forest))
 pass

@@ -1,9 +1,3 @@
-from __future__ import division
-from skimage.io import imread
-from skimage import img_as_float
-from sklearn.cluster import KMeans
-import numpy as np
-
 image = imread('parrots.jpg')
 float_image = img_as_float(image)
 n = 713 * 474
